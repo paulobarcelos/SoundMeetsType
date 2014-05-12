@@ -1,0 +1,10 @@
+{
+  "name": "echonest-data-analysis",
+  "author": "Paulo Barcelos",
+  "dependencies": {
+    "happy-toolkit" : "x",
+    "requirejs" : "x",
+    "node-static": "x"
+    },
+  "license": "WTFPL"
+}

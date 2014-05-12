@@ -1,0 +1,96 @@
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "Beat Clearness": 0.99,
+        "Beat Smoothing": 0.9332600000000001,
+        "Beat Variation Power": 2.6717000000000004,
+        "Debug Spectrum": false,
+        "Bass Filter Frequency": 50,
+        "Bass Filter Q": 8.60187526000832,
+        "Bass Filter Gain": 3.6865179685749943,
+        "Medium Filter Frequency": 845.5914736193076,
+        "Medium Filter Q": 15,
+        "Medium Filter Gain": 1,
+        "Treble Filter Frequency": 8991.007712246792,
+        "Treble Filter Q": 99,
+        "Treble Filter Gain": 25,
+        "Pierce Filter Frequency": 18000,
+        "Pierce Filter Q": 150,
+        "Pierce Filter Gain": 40,
+        "Pierce Power": 0.8823022574530415,
+        "Pierce Multiplier": 20,
+        "Playback Gain": 1,
+        "Music": "Dr.Dre - StillDRE",
+        "Mesh Resolution": 10,
+        "Ray Modified Areas": 52,
+        "Ray Casting Resolution": 10,
+        "Ray Casting Size": 1.0352941176470587,
+        "Mesh Material": "Normal",
+        "Beat Source": "Treble",
+        "Regeneration Strength": 0.001,
+        "Bass Beat Power Modifier": 0.33304423243712056,
+        "Bass Displacement Strength": 0.08048568950563748,
+        "Bass Displacement Power Modifier": 2.0260190806591503,
+        "Bass Displacement Map": "0",
+        "Medium Beat Power Modifier": 1,
+        "Medium Displacement Strength": 0,
+        "Medium Displacement Power Modifier": 1,
+        "Medium Displacement Map": "2",
+        "Treble Beat Power Modifier": 4,
+        "Treble Displacement Strength": 0.09,
+        "Treble Displacement Power Modifier": 1,
+        "Treble Displacement Map": "5"
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Beat Detector": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Pierce Modifiers": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Audio": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Mesh Setup": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Mesh Appearance": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Displacement": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Bass Displacement": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Medium Displacement": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Treble Displacement": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    }
+  }
+}
