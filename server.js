@@ -1,10 +1,18 @@
 var static = require('node-static');
 var file = new static.Server('./dist');
 
-require('http').createServer(function (request, response) {
+var https = require('https');
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options, function (request, response) {
 
 	if(request.url == '/'){
-		response.writeHead(302,	{Location: '/raw'});
+		response.writeHead(302,	{Location: '/font-bump'});
 		response.end();
 		return;
 	}
@@ -15,4 +23,4 @@ require('http').createServer(function (request, response) {
 
 	request.resume();
 	
-}).listen(process.env.VCAP_APP_PORT || process.env.PORT || 8080);
+}).listen(process.env.VCAP_APP_PORT || process.env.PORT || 8686);
