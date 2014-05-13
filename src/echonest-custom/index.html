@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Happy</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		
+		
+		<!--happy-->
+		<link rel="stylesheet" href="src/style.css">
+		<script data-main="src/main.js" src="../../node_modules/requirejs/require.js"></script>
+		<script>
+			require.config({
+				urlArgs: (new Date()).getTime()
+			});
+			require({
+				paths: {
+					happy: "../../../node_modules/happy-toolkit",
+					chart: "../../../libs/chart"
+				}
+
+			});
+		</script>
+		<!--/happy-->
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "Beat Clearness": 0.99,
+        "Beat Smoothing": 0.9332600000000001,
+        "Beat Variation Power": 2.6717000000000004,
+        "Debug Spectrum": false,
+        "Bass Filter Frequency": 50,
+        "Bass Filter Q": 8.60187526000832,
+        "Bass Filter Gain": 3.6865179685749943,
+        "Medium Filter Frequency": 845.5914736193076,
+        "Medium Filter Q": 15,
+        "Medium Filter Gain": 1,
+        "Treble Filter Frequency": 8991.007712246792,
+        "Treble Filter Q": 99,
+        "Treble Filter Gain": 25,
+        "Pierce Filter Frequency": 18000,
+        "Pierce Filter Q": 150,
+        "Pierce Filter Gain": 40,
+        "Pierce Power": 0.8823022574530415,
+        "Pierce Multiplier": 20,
+        "Playback Gain": 0.44822652308155736,
+        "Music": "Dr.Dre - StillDRE"
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Beat Detector": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Pierce Modifiers": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Audio": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    }
+  }
+}

@@ -1,0 +1,12 @@
+body{
+	 -webkit-font-smoothing: antialiased;
+}
+textarea{
+	font-family: monospace;
+	height: 300px;
+	width: 100%;
+	display: block;
+	background-color: #333;
+	color: #ccc;
+	font-size: 13px;
+}
