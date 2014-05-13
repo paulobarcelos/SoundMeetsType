@@ -20,20 +20,8 @@ define(
 	'STLSaver',
 	'CanvasSaver',
 
-	'fonts/skeletal_100.typeface.js',
-	'fonts/skeletal_200.typeface.js',
-	'fonts/skeletal_300.typeface.js',
-	'fonts/skeletal_400.typeface.js',
-	'fonts/skeletal_500.typeface.js',
-	'fonts/skeletal_600.typeface.js',
-	'fonts/skeletal_700.typeface.js',
-	'fonts/skeletal_800.typeface.js',
-	'fonts/skeletal_900.typeface.js',
-	'fonts/skeletal_1000.typeface.js',
-	'fonts/skeletal_1100.typeface.js',
 	'fonts/skeletal_1200.typeface.js',
 
-	'fonts/helvetiker_regular.typeface.js',
 	'canvas2blob'
 ],
 function (
@@ -57,19 +45,7 @@ function (
 	STLSaver,
 	CanvasSaver,
 
-	__skeletal_100,
-	__skeletal_200,
-	__skeletal_300,
-	__skeletal_400,
-	__skeletal_500,
-	__skeletal_600,
-	__skeletal_700,
-	__skeletal_800,
-	__skeletal_900,
-	__skeletal_1000,
-	__skeletal_1100,
 	__skeletal_1200,
-	__helvetiker_regular,
 	__canvas2blob
 
 
@@ -124,33 +100,36 @@ function (
 
 		self.setup = function(){
 			// Saving
-			GlobalGui.add('Export', 'Save STL', function(){
+			GlobalGui.add('Advanced', 'Save STL', function(){
 				stlSaver.save(geometry, 'STL ' + new Date());
 			});
-			GlobalGui.add('Export', 'Save Image', function(){
+			GlobalGui.add('Advanced', 'Save Image', saveImage);
+			window.onkeypress = function (argument) {
+				if(argument.keyIdentifier != "U+0057") return; // W
+				saveImage();
+			}
+			function saveImage(){
 				var loadingNode = document.createElement('div');
 				loadingNode.id = 'loading';
-				loadingNode.classList.add('exporting-image');
+				loadingNode.classList.add('printing');
 				document.body.appendChild(loadingNode);
 
-				var onResize = self.onResize;
+				/*var onResize = self.onResize;
 				self.onResize = function(){}
 				var lastScreenSize = screenSize;
-				var dimension = (window.devicePixelRatio > 1) ? 2100 : 4200;
+				var dimension = 1000;
 				onResize({
 					width: dimension,
 					height: dimension
 				})
-				setTimeout(function(){
+				setTimeout(function(){*/
 					canvasSaver.save(renderer.domElement, 'Canvas ' + new Date());
 					setTimeout(function(){
-						self.onResize = onResize;
-						onResize(lastScreenSize);
 						document.body.removeChild(loadingNode);
-					}, 1000)
-				}, 500)
+					}, 15000)
+				/*}, 500)*/
 				
-			});
+			}
 			// Beat detector -------------------------------------
 			audioContext = new AudioContext();
 			destination = new Node(audioContext.destination);
@@ -197,8 +176,8 @@ function (
 			materials['White Wireframe'] =   new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0xffffff, wireframe: true});
 			materials['Phong'] =   new THREE.MeshPhongMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading}); 
 			materials['Phong Wireframe'] =   new THREE.MeshPhongMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading, wireframe: true}); 
-			materials['Lambert'] =   new THREE.MeshLambertMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading}); 
-			materials['Lambert Wireframe'] =   new THREE.MeshLambertMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading, wireframe: true});
+			//materials['Lambert'] =   new THREE.MeshLambertMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading}); 
+			//materials['Lambert Wireframe'] =   new THREE.MeshLambertMaterial({side: THREE.DoubleSide, color: 0xffffff, shading: THREE.FlatShading, wireframe: true});
 			
 			bassArea = 0;
 			mediumArea = 0;
@@ -231,39 +210,7 @@ function (
 			GlobalGui.addCallback('Playback Gain', function (value) {
 				gain.native.gain.value = value;
 			});
-			/*		
-			GlobalGui.add('Audio', 'Music', 'AlfProysen - Lille Maltrost', {
-				'AlfProysen - Lille Maltrost': 'AlfProysen - Lille Maltrost',
-				'Bruce-Springsteen-Born-In-The-Usa' : 'Bruce-Springsteen-Born-In-The-Usa',
-				'delasoul - The Magic Number' : 'delasoul - The Magic Number',
-				'Digable Planets - It’s good to be here' : 'Digable Planets - It’s good to be here',
-				'Dr.Dre - StillDRE' : 'Dr.Dre - StillDRE',
-				'Everybody Needs Somebody To Love' : 'Everybody Needs Somebody To Love',
-				'fools_garden_lemon_tree' : 'fools_garden_lemon_tree',
-				'Fugees_-_Ready_Or_Not' : 'Fugees_-_Ready_Or_Not',
-				'Guns and Roses - Welcome to the Jungle (2)' : 'Guns and Roses - Welcome to the Jungle (2)',
-				'Lionel Richie - Dancing On The Ceiling' : 'Lionel Richie - Dancing On The Ceiling',
-				'madonna_likeavirgin' : 'madonna_likeavirgin',
-				'Michael_Jackson_Thriller' : 'Michael_Jackson_Thriller',
-				'Miriam Makeba - Pata Pata' : 'Miriam Makeba - Pata Pata',
-				'nonchalant_5oclock' : 'nonchalant_5oclock',
-				'One day you’ll dance for me New York City' : 'One day you’ll dance for me New York City',
-				'Paris - The devil made me do it' : 'Paris - The devil made me do it',
-				'Phil Collins - In the Air tonight' : 'Phil Collins - In the Air tonight',
-				'Prince - Purple Rain' : 'Prince - Purple Rain',
-				'Snoop Dog - Gin and Juice ' : 'Snoop Dog - Gin and Juice ',
-				'sonicyouth-Pattern Recognition' : 'sonicyouth-Pattern Recognition',
-				'Stevie-Wonder-Superstition' : 'Stevie-Wonder-Superstition',
-				'thecure-boysdontcry' : 'thecure-boysdontcry',
-				'TomWaitz_The Piano Has Been Drinking' : 'TomWaitz_The Piano Has Been Drinking',
-				'yolatengo_season_of_the_shark' : 'yolatengo_season_of_the_shark'
-			});
-			var onMusicChange = function (id) {
-				if(id == '-') return;
-				loadData(id, onDataLoaded);
-			}
-			GlobalGui.addCallback('Music', onMusicChange);
-			onMusicChange(GlobalGui['Music']);*/
+
 
 			getUserMedia({audio: true}, function(stream){
 				onMicReady(stream);
@@ -280,23 +227,12 @@ function (
 			}
 
 			GlobalGui.add('Mesh', 'Text', 'A');
-			GlobalGui.add('Mesh', 'Font weight', '1200', {
-				'100': '100',
-				'200': '200',
-				'300': '300',
-				'400': '400',
-				'500': '500',
-				'600': '600',
-				'700': '700',
-				'800': '800',
-				'900': '900',
-				'1000': '1000',
-				'1100': '1100',
+			/*GlobalGui.add('Mesh', 'Font weight', '1200', {
 				'1200': '1200'
 
-			});
+			});*/
 			GlobalGui.add('Advanced', 'Mesh Tessellate Max Length', 0.1, 0, 2);
-			GlobalGui.add('Mesh', 'Resolution', 1, 1, 10, 1);
+			GlobalGui.add('Mesh', 'Resolution', 1, 1, 7, 1);
 
 			
 			GlobalGui.add('Advanced', 'Ray Modified Areas', 1, 1, 50, 1);
@@ -304,7 +240,7 @@ function (
 			GlobalGui.add('Advanced', 'Ray Casting Distance', 2, 0, 10);
 			GlobalGui.add('Advanced', 'Ray Casting Resolution', 50, 1, 100);
 			GlobalGui.add('Advanced', 'Ray Casting Size', 1, 0, 3);
-			GlobalGui.add('Mesh', 'Rebuild!', recreateMesh);
+			GlobalGui.add('Mesh', 'REBUILD!', recreateMesh);
 
 			GlobalGui.add('Mesh', 'Material', firstMaterial , materialsOptions);
 			GlobalGui.addCallback('Material', function (id) {
@@ -747,7 +683,7 @@ function (
 				bevelEnabled: false,
 
 				font: 'skeletal',
-				weight: GlobalGui['Font weight']
+				weight: 1200
 				//font: 'helvetiker',
 				//weight: 'normal'
 			});

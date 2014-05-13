@@ -1,5 +1,5 @@
 var static = require('node-static');
-var file = new static.Server('./');
+var file = new static.Server('./dist');
 
 var https = require('https');
 var fs = require('fs');
@@ -13,7 +13,7 @@ var options = {
 https.createServer(options, function (request, response) {
 
 	if(request.url == '/'){
-		response.writeHead(302,	{Location: '/src/font-bump'});
+		response.writeHead(302,	{Location: '/font-bump/index.html'});
 		response.end();
 		return;
 	}

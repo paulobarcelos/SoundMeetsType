@@ -3,7 +3,7 @@
   "remembered": {
     "Default": {
       "0": {
-        "Beat Clearness": 0.99,
+        "Beat Clearness": 0.9900000000000001,
         "Beat Smoothing": 0.9332600000000001,
         "Beat Variation Power": 2.6717000000000004,
         "Debug Spectrum": false,
@@ -20,14 +20,13 @@
         "Pierce Filter Q": 150,
         "Pierce Filter Gain": 40,
         "On/Off": true,
-        "Background Color": 0,
+        "Background Color": 16777215,
         "Pierce Power": 0.8823022574530415,
         "Pierce Multiplier": 20,
         "Playback Gain": 0,
-        "Text": "H",
-        "Font weight": "1100",
+        "Text": "A",
         "Mesh Tessellate Max Length": 0,
-        "Resolution": 5,
+        "Resolution": 3,
         "Ray Modified Areas": 6,
         "Ray Casting Cube Lock": false,
         "Ray Casting Distance": 4.284707540521494,
@@ -56,7 +55,12 @@
   "folders": {
     "Advanced": {
       "preset": "Default",
-      "closed": false,
+      "closed": true,
+      "folders": {}
+    },
+    "Export": {
+      "preset": "Default",
+      "closed": true,
       "folders": {}
     },
     "General": {
