@@ -1,3 +1,10 @@
+.dg.a.has-save ul{
+	margin-top: 0 !important;
+
+}
+.save-row{
+	display: none !important;
+}
 #app{
 	position: fixed;
 	width: 100%;
@@ -40,7 +47,7 @@
 	content: "exporting image";
 }
 #loading.printing:after{
-	content: "sending to printer queue";
+	content: "printing image";
 }
 
 #logo{

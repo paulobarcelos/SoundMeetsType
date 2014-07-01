@@ -12,7 +12,7 @@ function (
 
 		var save = function( canvas, name ){  
 			canvas.toBlob(function(blob){
-				FileSaver(blob, '/test/'+name + '.png');
+				FileSaver(blob, name + '.png');
 			})
 			
 

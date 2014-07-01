@@ -9,7 +9,7 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/node</string>
-		<string>~/Desktop/soundmeetstype/server.js</string>
+		<string>/Users/Hyrdata/Documents/SoundMeetsType/server.js</string>
 	</array>
 </dict>
 </plist>
