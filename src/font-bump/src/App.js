@@ -19,6 +19,10 @@ define(
 	'TrackballControls',
 	'STLSaver',
 	'CanvasSaver',
+	'EffectComposer',
+	'RenderPass',
+	'DotScreenShader',
+	'RGBShiftShader',
 
 	'fonts/skeletal_1200.typeface.js',
 	'fonts/skeletal_1100.typeface.js',
@@ -55,6 +59,10 @@ function (
 	TrackballControls,
 	STLSaver,
 	CanvasSaver,
+	EffectComposer,
+	RenderPass,
+	DotScreenShader,
+	RGBShiftShader,
 
 	__skeletal_1200,
 	__skeletal_1100,
@@ -99,6 +107,7 @@ function (
 
 		
 		renderer,
+		composer,
 		scene,
 		camera,
 		controls,
@@ -211,6 +220,19 @@ function (
 			bassArea = 0;
 			mediumArea = 0;
 			trebleArea = 0;
+
+			// post processing
+			composer = new THREE.EffectComposer( renderer );
+			composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+			var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
+			dotScreenEffect.uniforms[ 'scale' ].value = 0;
+			composer.addPass( dotScreenEffect );
+
+			var rgbShiftEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+			rgbShiftEffect.uniforms[ 'amount' ].value = 0;
+			rgbShiftEffect.renderToScreen = true;
+			composer.addPass( rgbShiftEffect );
 
 			// GUI -------------------------------------
 
@@ -332,6 +354,18 @@ function (
 			});
 			GlobalGui.add('Advanced', 'Show Last Displacement Map', false);
 
+			GlobalGui.add('Mesh', 'Enable Shaders', false);
+			GlobalGui.add('Mesh', 'Dot Screen Shader', 0, 0, 10);
+			GlobalGui.addCallback('Dot Screen Shader', function(value){
+				dotScreenEffect.uniforms[ 'scale' ].value = value;
+			});
+			dotScreenEffect.uniforms[ 'scale' ].value =  GlobalGui['Dot Screen Shader'];
+			GlobalGui.add('Mesh', 'RGB Shift Shader', 0, 0, 0.1);
+			GlobalGui.addCallback('RGB Shift Shader', function(value){
+				rgbShiftEffect.uniforms[ 'amount' ].value = value;
+			});
+			rgbShiftEffect.uniforms[ 'amount' ].value = GlobalGui['RGB Shift Shader'];
+
 			GlobalGui.GUI.toggleHide();
 
 			displacementMap = document.createElement('div');
@@ -347,6 +381,7 @@ function (
 			.catch(function(error) {
 				console.error(error);
 			})
+
 
 		}
 	
@@ -835,7 +870,9 @@ function (
 			controls.update();
 		}
 		self.draw = function () {
-			renderer.render(scene, camera);
+			if(GlobalGui['Enable Shaders'])composer.render();
+			else renderer.render(scene, camera);
+			
 			camera.updateProjectionMatrix();
 		}
 		self.onResize = function(size) {
