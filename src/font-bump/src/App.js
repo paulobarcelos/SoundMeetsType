@@ -21,6 +21,17 @@ define(
 	'CanvasSaver',
 
 	'fonts/skeletal_1200.typeface.js',
+	'fonts/skeletal_1100.typeface.js',
+	'fonts/skeletal_1000.typeface.js',
+	'fonts/skeletal_900.typeface.js',
+	'fonts/skeletal_800.typeface.js',
+	'fonts/skeletal_700.typeface.js',
+	'fonts/skeletal_600.typeface.js',
+	'fonts/skeletal_500.typeface.js',
+	'fonts/skeletal_400.typeface.js',
+	'fonts/skeletal_300.typeface.js',
+	'fonts/skeletal_200.typeface.js',
+	'fonts/skeletal_100.typeface.js',
 
 	'canvas2blob'
 ],
@@ -46,6 +57,18 @@ function (
 	CanvasSaver,
 
 	__skeletal_1200,
+	__skeletal_1100,
+	__skeletal_1000,
+	__skeletal_900,
+	__skeletal_800,
+	__skeletal_700,
+	__skeletal_600,
+	__skeletal_500,
+	__skeletal_400,
+	__skeletal_300,
+	__skeletal_200,
+	__skeletal_100,
+
 	__canvas2blob
 
 
@@ -233,10 +256,20 @@ function (
 			}
 
 			GlobalGui.add('Mesh', 'Text', 'A');
-			/*GlobalGui.add('Mesh', 'Font weight', '1200', {
-				'1200': '1200'
-
-			});*/
+			GlobalGui.add('Mesh', 'Font weight', '1200', {
+				'1200': '1200',
+				'1100': '1100',
+				'1000': '1000',
+				'900': '900',
+				'800': '800',
+				'700': '700',
+				'600': '600',
+				'500': '500',
+				'400': '400',
+				'300': '300',
+				'200': '200',
+				'100': '100'
+			});
 			GlobalGui.add('Advanced', 'Mesh Tessellate Max Length', 0.1, 0, 2);
 			GlobalGui.add('Mesh', 'Resolution', 1, 1, 7, 1);
 
@@ -689,7 +722,7 @@ function (
 				bevelEnabled: false,
 
 				font: 'skeletal',
-				weight: 1200
+				weight: GlobalGui['Font weight']
 				//font: 'helvetiker',
 				//weight: 'normal'
 			});
