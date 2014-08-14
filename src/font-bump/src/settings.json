@@ -23,7 +23,7 @@
         "Background Color": 16777215,
         "Pierce Power": 0.8823022574530415,
         "Pierce Multiplier": 20,
-        "Playback Gain": 0,
+        "Playback Gain": 1,
         "Text": "A",
         "Mesh Tessellate Max Length": 0,
         "Resolution": 3,

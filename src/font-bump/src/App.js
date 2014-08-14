@@ -19,8 +19,23 @@ define(
 	'TrackballControls',
 	'STLSaver',
 	'CanvasSaver',
+	'EffectComposer',
+	'RenderPass',
+	'DotScreenShader',
+	'RGBShiftShader',
 
 	'fonts/skeletal_1200.typeface.js',
+	'fonts/skeletal_1100.typeface.js',
+	'fonts/skeletal_1000.typeface.js',
+	'fonts/skeletal_900.typeface.js',
+	'fonts/skeletal_800.typeface.js',
+	'fonts/skeletal_700.typeface.js',
+	'fonts/skeletal_600.typeface.js',
+	'fonts/skeletal_500.typeface.js',
+	'fonts/skeletal_400.typeface.js',
+	'fonts/skeletal_300.typeface.js',
+	'fonts/skeletal_200.typeface.js',
+	'fonts/skeletal_100.typeface.js',
 
 	'canvas2blob'
 ],
@@ -44,8 +59,24 @@ function (
 	TrackballControls,
 	STLSaver,
 	CanvasSaver,
+	EffectComposer,
+	RenderPass,
+	DotScreenShader,
+	RGBShiftShader,
 
 	__skeletal_1200,
+	__skeletal_1100,
+	__skeletal_1000,
+	__skeletal_900,
+	__skeletal_800,
+	__skeletal_700,
+	__skeletal_600,
+	__skeletal_500,
+	__skeletal_400,
+	__skeletal_300,
+	__skeletal_200,
+	__skeletal_100,
+
 	__canvas2blob
 
 
@@ -76,6 +107,7 @@ function (
 
 		
 		renderer,
+		composer,
 		scene,
 		camera,
 		controls,
@@ -104,11 +136,16 @@ function (
 				stlSaver.save(geometry, 'STL ' + new Date());
 			});
 			GlobalGui.add('Advanced', 'Save Image', saveImage);
+			var doingSave=false;
 			window.onkeypress = function (argument) {
-				if(argument.keyIdentifier != "U+0057") return; // W
+				console.log(argument.keyIdentifier )
+				if(doingSave) return;
+
+				if(argument.keyIdentifier != "U+0020") return; // W
 				saveImage();
 			}
 			function saveImage(){
+				doingSave =true;
 				var loadingNode = document.createElement('div');
 				loadingNode.id = 'loading';
 				loadingNode.classList.add('printing');
@@ -126,6 +163,7 @@ function (
 					canvasSaver.save(renderer.domElement, 'Canvas ' + new Date());
 					setTimeout(function(){
 						document.body.removeChild(loadingNode);
+						doingSave =false;
 					}, 15000)
 				/*}, 500)*/
 				
@@ -133,7 +171,7 @@ function (
 			// Beat detector -------------------------------------
 			audioContext = new AudioContext();
 			destination = new Node(audioContext.destination);
-			gain = new Node(audioContext.createGainNode());
+			gain = new Node(audioContext.createGain());
 			//audioForAnalysis = new AudioFile(audioContext); 
 			//audioForPlayback = new AudioFile(audioContext); 			
 			
@@ -183,6 +221,19 @@ function (
 			mediumArea = 0;
 			trebleArea = 0;
 
+			// post processing
+			composer = new THREE.EffectComposer( renderer );
+			composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+			var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
+			dotScreenEffect.uniforms[ 'scale' ].value = 0;
+			composer.addPass( dotScreenEffect );
+
+			var rgbShiftEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+			rgbShiftEffect.uniforms[ 'amount' ].value = 0;
+			rgbShiftEffect.renderToScreen = true;
+			composer.addPass( rgbShiftEffect );
+
 			// GUI -------------------------------------
 
 			GlobalGui.add('General', 'On/Off', true);
@@ -227,10 +278,20 @@ function (
 			}
 
 			GlobalGui.add('Mesh', 'Text', 'A');
-			/*GlobalGui.add('Mesh', 'Font weight', '1200', {
-				'1200': '1200'
-
-			});*/
+			GlobalGui.add('Mesh', 'Font weight', '1200', {
+				'1200': '1200',
+				'1100': '1100',
+				'1000': '1000',
+				'900': '900',
+				'800': '800',
+				'700': '700',
+				'600': '600',
+				'500': '500',
+				'400': '400',
+				'300': '300',
+				'200': '200',
+				'100': '100'
+			});
 			GlobalGui.add('Advanced', 'Mesh Tessellate Max Length', 0.1, 0, 2);
 			GlobalGui.add('Mesh', 'Resolution', 1, 1, 7, 1);
 
@@ -293,6 +354,18 @@ function (
 			});
 			GlobalGui.add('Advanced', 'Show Last Displacement Map', false);
 
+			GlobalGui.add('Mesh', 'Enable Shaders', false);
+			GlobalGui.add('Mesh', 'Dot Screen Shader', 0, 0, 10);
+			GlobalGui.addCallback('Dot Screen Shader', function(value){
+				dotScreenEffect.uniforms[ 'scale' ].value = value;
+			});
+			dotScreenEffect.uniforms[ 'scale' ].value =  GlobalGui['Dot Screen Shader'];
+			GlobalGui.add('Mesh', 'RGB Shift Shader', 0, 0, 0.1);
+			GlobalGui.addCallback('RGB Shift Shader', function(value){
+				rgbShiftEffect.uniforms[ 'amount' ].value = value;
+			});
+			rgbShiftEffect.uniforms[ 'amount' ].value = GlobalGui['RGB Shift Shader'];
+
 			GlobalGui.GUI.toggleHide();
 
 			displacementMap = document.createElement('div');
@@ -308,6 +381,7 @@ function (
 			.catch(function(error) {
 				console.error(error);
 			})
+
 
 		}
 	
@@ -683,7 +757,7 @@ function (
 				bevelEnabled: false,
 
 				font: 'skeletal',
-				weight: 1200
+				weight: GlobalGui['Font weight']
 				//font: 'helvetiker',
 				//weight: 'normal'
 			});
@@ -796,7 +870,9 @@ function (
 			controls.update();
 		}
 		self.draw = function () {
-			renderer.render(scene, camera);
+			if(GlobalGui['Enable Shaders'])composer.render();
+			else renderer.render(scene, camera);
+			
 			camera.updateProjectionMatrix();
 		}
 		self.onResize = function(size) {
