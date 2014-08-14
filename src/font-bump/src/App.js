@@ -171,7 +171,7 @@ function (
 			// Beat detector -------------------------------------
 			audioContext = new AudioContext();
 			destination = new Node(audioContext.destination);
-			gain = new Node(audioContext.createGainNode());
+			gain = new Node(audioContext.createGain());
 			//audioForAnalysis = new AudioFile(audioContext); 
 			//audioForPlayback = new AudioFile(audioContext); 			
 			
