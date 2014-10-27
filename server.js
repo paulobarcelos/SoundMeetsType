@@ -19,7 +19,3 @@ http.createServer(function (request, response) {
 	request.resume();
 	
 }).listen(process.env.VCAP_APP_PORT || process.env.PORT || 7474);
-
-
-var childProcess = require('child_process'); 
-childProcess.exec('open -a "/Applications/Google Chrome.app" http://localhost:7474/ --args --kiosk');
