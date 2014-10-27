@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /Users/Hyrdata/Documents/SoundMeetsType/
-node server.js
+node server-local.js
