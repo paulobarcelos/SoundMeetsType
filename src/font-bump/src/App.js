@@ -132,10 +132,26 @@ function (
 
 		self.setup = function(){
 			// Saving
+			GlobalGui.add('Instructions', 'Readme.txt', function(){
+				var win = window.open('readme.txt', '_blank');
+				win.focus();
+			});
+
+			// This is just so we can push the "advanced" tab to the bottom
+			GlobalGui.add('General', 'On/Off', true);
+			GlobalGui.add('Mesh', 'Text', 'A');
+			GlobalGui.add('Displacement', 'Elasticity', 0.001, 0, 0.2);
+
+
+	GlobalGui.add('Advanced', 'Beat Clearness', 0.99, 0, 1, 0.00001);
+	GlobalGui.add('Advanced', 'Beat Smoothing', 0.99, 0, 1, 0.00001);
+	GlobalGui.add('Advanced', 'Beat Variation Power', 3, 0, 10, 0.00001);
+
+			// Saving
 			GlobalGui.add('Advanced', 'Save STL', function(){
 				stlSaver.save(geometry, 'STL ' + new Date());
 			});
-			GlobalGui.add('Advanced', 'Save Image', saveImage);
+			GlobalGui.add('General', 'Save Image', saveImage);
 			var doingSave=false;
 			window.onkeypress = function (argument) {
 				console.log(argument.keyIdentifier )
@@ -236,7 +252,7 @@ function (
 
 			// GUI -------------------------------------
 
-			GlobalGui.add('General', 'On/Off', true);
+			//GlobalGui.add('General', 'On/Off', true);
 			GlobalGui.addColor('General', 'Background Color', "#000000");
 			
 			var setBGColor = function (value) {
@@ -257,7 +273,7 @@ function (
 			setBGColor(GlobalGui['Background Color']);
 			GlobalGui.add('Advanced', 'Pierce Power', 1, 0, 20);
 			GlobalGui.add('Advanced', 'Pierce Multiplier', 1, 0, 20);			
-			GlobalGui.add('Advanced', 'Playback Gain', 1, 0, 1);
+			GlobalGui.add('Advanced', 'Playback Gain', 0, 0, 1);
 			GlobalGui.addCallback('Playback Gain', function (value) {
 				gain.native.gain.value = value;
 			});
@@ -277,7 +293,7 @@ function (
 				materialsOptions[key] = key;
 			}
 
-			GlobalGui.add('Mesh', 'Text', 'A');
+			//GlobalGui.add('Mesh', 'Text', 'A');
 			GlobalGui.add('Mesh', 'Font weight', '1200', {
 				'1200': '1200',
 				'1100': '1100',
@@ -308,7 +324,7 @@ function (
 				mesh.material = materials[id];
 			});
 			GlobalGui.add('Mesh', 'Reset', resetMesh);
-			GlobalGui.add('Displacement', 'Elasticity', 0.001, 0, 0.2);
+			//GlobalGui.add('Displacement', 'Elasticity', 0.001, 0, 0.2);
 			GlobalGui.add('Advanced', 'Bass Beat Power Modifier', 1, 0, 4);
 			GlobalGui.add('Advanced', 'Bass Displacement Strength', 0.01, 0, 0.2);
 			GlobalGui.add('Advanced', 'Bass Displacement Power Modifier', 1, 0, 4);
@@ -355,12 +371,12 @@ function (
 			GlobalGui.add('Advanced', 'Show Last Displacement Map', false);
 
 			GlobalGui.add('Mesh', 'Enable Shaders', false);
-			GlobalGui.add('Mesh', 'Dot Screen Shader', 0, 0, 10);
+			GlobalGui.add('Advanced', 'Dot Screen Shader', 0, 0, 10);
 			GlobalGui.addCallback('Dot Screen Shader', function(value){
 				dotScreenEffect.uniforms[ 'scale' ].value = value;
 			});
 			dotScreenEffect.uniforms[ 'scale' ].value =  GlobalGui['Dot Screen Shader'];
-			GlobalGui.add('Mesh', 'RGB Shift Shader', 0, 0, 0.1);
+			GlobalGui.add('Advanced', 'RGB Shift Shader', 0, 0, 0.1);
 			GlobalGui.addCallback('RGB Shift Shader', function(value){
 				rgbShiftEffect.uniforms[ 'amount' ].value = value;
 			});
