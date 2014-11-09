@@ -23,7 +23,7 @@
         "Background Color": 16777215,
         "Pierce Power": 0.8823022574530415,
         "Pierce Multiplier": 20,
-        "Playback Gain": 1,
+        "Playback Gain": 0,
         "Text": "A",
         "Mesh Tessellate Max Length": 0,
         "Resolution": 3,
@@ -53,14 +53,9 @@
   },
   "closed": false,
   "folders": {
-    "Advanced": {
+    "Instructions": {
       "preset": "Default",
-      "closed": true,
-      "folders": {}
-    },
-    "Export": {
-      "preset": "Default",
-      "closed": true,
+      "closed": false,
       "folders": {}
     },
     "General": {
@@ -76,6 +71,11 @@
     "Displacement": {
       "preset": "Default",
       "closed": false,
+      "folders": {}
+    },
+    "Advanced": {
+      "preset": "Default",
+      "closed": true,
       "folders": {}
     }
   }

@@ -19,9 +19,6 @@ function (
 	var AudioContext = vendor.validateConstructor('AudioContext');
 	var getUserMedia = vendor.validateMethod('getUserMedia', navigator);
 
-	GlobalGui.add('Advanced', 'Beat Clearness', 0.99, 0, 1, 0.00001);
-	GlobalGui.add('Advanced', 'Beat Smoothing', 0.99, 0, 1, 0.00001);
-	GlobalGui.add('Advanced', 'Beat Variation Power', 3, 0, 10, 0.00001);
 
 	var FrequencyData = function(fftSize, audioContext, destination) {
 		var
